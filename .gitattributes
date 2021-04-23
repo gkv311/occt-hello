@@ -1,0 +1,15 @@
+*.h         text
+*.cpp       text
+*.sh        eol=lf
+*.workspace eol=lf
+*.cbp       eol=lf
+*.vcxproj*  eol=crlf
+*.filters   eol=crlf
+*.sln       eol=crlf
+*.bat       eol=crlf
+*.rc        eol=crlf
+*.def       eol=crlf
+*.txt       eol=crlf
+*.ico       binary
+.gitignore     eol=lf
+.gitattributes eol=lf
