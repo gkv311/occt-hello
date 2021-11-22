@@ -1,4 +1,6 @@
-#include <windows.h>
+#ifdef _WIN32
+  #include <windows.h>
+#endif
 
 #include <AIS_InteractiveContext.hxx>
 #include <AIS_Shape.hxx>
@@ -8,17 +10,21 @@
 #include <V3d_View.hxx>
 #include <V3d_Viewer.hxx>
 
-#include <WNT_WClass.hxx>
-#include <WNT_Window.hxx>
+#ifdef _WIN32
+  #include <WNT_WClass.hxx>
+  #include <WNT_Window.hxx>
+#endif
 
-#pragma comment(lib, "TKOpenGl.lib")
-#pragma comment(lib, "TKV3d.lib")
-#pragma comment(lib, "TKPrim.lib")   
-#pragma comment(lib, "TKTopAlgo.lib")
-#pragma comment(lib, "TKBRep.lib")
-#pragma comment(lib, "TKService.lib")
-#pragma comment(lib, "TKMath.lib")
-#pragma comment(lib, "TKernel.lib")
+#ifdef _MSC_VER
+  #pragma comment(lib, "TKOpenGl.lib")
+  #pragma comment(lib, "TKV3d.lib")
+  #pragma comment(lib, "TKPrim.lib")
+  #pragma comment(lib, "TKTopAlgo.lib")
+  #pragma comment(lib, "TKBRep.lib")
+  #pragma comment(lib, "TKService.lib")
+  #pragma comment(lib, "TKMath.lib")
+  #pragma comment(lib, "TKernel.lib")
+#endif
 
 //! Sample single-window viewer class.
 class MyViewer : public AIS_ViewController
@@ -38,11 +44,13 @@ public:
 
     // view setup
     myView = new V3d_View (aViewer);
+  #ifdef _WIN32
     const TCollection_AsciiString aClassName ("MyWinClass");
     Handle(WNT_WClass) aWinClass = new WNT_WClass (aClassName.ToCString(), &windowProcWrapper, 0);
-    Handle(WNT_Window) aWindow = new WNT_Window ("OCCT Viewer", aWinClass,  WS_OVERLAPPEDWINDOW, 
+    Handle(WNT_Window) aWindow = new WNT_Window ("OCCT Viewer", aWinClass,  WS_OVERLAPPEDWINDOW,
                                                  100, 100, 512, 512, Quantity_NOC_BLACK);
     ::SetWindowLongPtrW ((HWND )aWindow->NativeHandle(), GWLP_USERDATA, (LONG_PTR )this);
+  #endif
     myView->SetWindow (aWindow);
     myView->SetBackgroundColor (Quantity_NOC_GRAY50);
     myView->TriedronDisplay (Aspect_TOTP_LEFT_LOWER, Quantity_NOC_WHITE, 0.1);
@@ -61,126 +69,58 @@ public:
   }
 
 private:
+  //! Handle expose event.
+  virtual void ProcessExpose() override
+  {
+    if (!myView.IsNull())
+    {
+      FlushViewEvents (myContext, myView, true);
+    }
+  }
+
+  //! Handle window resize event.
+  virtual void ProcessConfigure (bool theIsResized) override
+  {
+    if (!myView.IsNull() && theIsResized)
+    {
+      myView->Window()->DoResize();
+      myView->MustBeResized();
+      myView->Invalidate();
+      FlushViewEvents (myContext, myView, true);
+    }
+  }
+
+  //! Handle input.
+  virtual void ProcessInput() override
+  {
+    if (!myView.IsNull())
+    {
+      ProcessExpose();
+    }
+  }
+
+#ifdef _WIN32
   //! Window message handler.
   static LRESULT WINAPI windowProcWrapper (HWND theWnd, UINT theMsg, WPARAM theParamW, LPARAM theParamL)
   {
-    MyViewer* aThis = (MyViewer* )::GetWindowLongPtrW (theWnd, GWLP_USERDATA);
-    return aThis != NULL
-         ? aThis->windowProc(theWnd, theMsg, theParamW, theParamL)
-         : ::DefWindowProcW (theWnd, theMsg, theParamW, theParamL);
-  }
-
-  //! Window message handler.
-  LRESULT WINAPI windowProc (HWND theWnd, UINT theMsg, WPARAM theParamW, LPARAM theParamL)
-  {
-    switch (theMsg)
+    if (theMsg == WM_CLOSE)
     {
-      case WM_CLOSE:
+      exit (0);
+      return 0;
+    }
+
+    if (MyViewer* aThis = (MyViewer* )::GetWindowLongPtrW (theWnd, GWLP_USERDATA))
+    {
+      WNT_Window* aWindow = dynamic_cast<WNT_Window* >(aThis->myView->Window().get());
+      MSG aMsg = { theWnd, theMsg, theParamW, theParamL };
+      if (aWindow->ProcessMessage (*aThis, aMsg))
       {
-        exit (0);
         return 0;
       }
-      case WM_PAINT:
-      {
-        PAINTSTRUCT aPaint;
-        ::BeginPaint(theWnd, &aPaint);
-        ::EndPaint  (theWnd, &aPaint);
-        myView->Redraw();
-        break;
-      }
-      case WM_SIZE:
-      {
-        myView->MustBeResized();
-        AIS_ViewController::FlushViewEvents (myContext, myView, true);
-        break;
-      }
-      case WM_LBUTTONUP:
-      case WM_MBUTTONUP:
-      case WM_RBUTTONUP:
-      case WM_LBUTTONDOWN:
-      case WM_MBUTTONDOWN:
-      case WM_RBUTTONDOWN:
-      {
-        const Graphic3d_Vec2i aPos (LOWORD(theParamL), HIWORD(theParamL));
-        const Aspect_VKeyFlags aFlags = WNT_Window::MouseKeyFlagsFromEvent (theParamW);
-        Aspect_VKeyMouse aButton = Aspect_VKeyMouse_NONE;
-        switch (theMsg)
-        {
-          case WM_LBUTTONUP:
-          case WM_LBUTTONDOWN:
-            aButton = Aspect_VKeyMouse_LeftButton;
-            break;
-          case WM_MBUTTONUP:
-          case WM_MBUTTONDOWN:
-            aButton = Aspect_VKeyMouse_MiddleButton;
-            break;
-          case WM_RBUTTONUP:
-          case WM_RBUTTONDOWN:
-            aButton = Aspect_VKeyMouse_RightButton;
-            break;
-        }
-        if (theMsg == WM_LBUTTONDOWN
-         || theMsg == WM_MBUTTONDOWN
-         || theMsg == WM_RBUTTONDOWN)
-        {
-          ::SetFocus  (theWnd);
-          ::SetCapture(theWnd);
-          AIS_ViewController::PressMouseButton (aPos, aButton, aFlags, false);
-        }
-        else
-        {
-          ::ReleaseCapture();
-          AIS_ViewController::ReleaseMouseButton (aPos, aButton, aFlags, false);
-        }
-        AIS_ViewController::FlushViewEvents (myContext, myView, true);
-        break;
-      }
-      case WM_MOUSEMOVE:
-      {
-        Graphic3d_Vec2i aPos (LOWORD(theParamL), HIWORD(theParamL));
-        Aspect_VKeyMouse aButtons = WNT_Window::MouseButtonsFromEvent (theParamW);
-        Aspect_VKeyFlags aFlags   = WNT_Window::MouseKeyFlagsFromEvent(theParamW);
-        CURSORINFO aCursor;
-        aCursor.cbSize = sizeof(aCursor);
-        if (::GetCursorInfo (&aCursor) != FALSE)
-        {
-          POINT aCursorPnt = { aCursor.ptScreenPos.x, aCursor.ptScreenPos.y };
-          if (::ScreenToClient (theWnd, &aCursorPnt))
-          {
-            // as we override mouse position, we need overriding also mouse state
-            aPos.SetValues (aCursorPnt.x, aCursorPnt.y);
-            aButtons = WNT_Window::MouseButtonsAsync();
-            aFlags   = WNT_Window::MouseKeyFlagsAsync();
-          }
-        }
-
-        AIS_ViewController::UpdateMousePosition (aPos, aButtons, aFlags, false);
-        AIS_ViewController::FlushViewEvents (myContext, myView, true);
-        break;
-      }
-      case WM_MOUSEWHEEL:
-      {
-        const int aDelta = GET_WHEEL_DELTA_WPARAM (theParamW);
-        const Standard_Real aDeltaF = Standard_Real(aDelta) / Standard_Real(WHEEL_DELTA);
-        const Aspect_VKeyFlags aFlags = WNT_Window::MouseKeyFlagsFromEvent (theParamW);
-        Graphic3d_Vec2i aPos (int(short(LOWORD(theParamL))), int(short(HIWORD(theParamL))));
-        POINT aCursorPnt = { aPos.x(), aPos.y() };
-        if (::ScreenToClient (theWnd, &aCursorPnt))
-        {
-          aPos.SetValues (aCursorPnt.x, aCursorPnt.y);
-        }
-
-        AIS_ViewController::UpdateMouseScroll (Aspect_ScrollDelta (aPos, aDeltaF, aFlags));
-        AIS_ViewController::FlushViewEvents (myContext, myView, true);
-        break;
-      }
-      default:
-      {
-        return ::DefWindowProcW (theWnd, theMsg, theParamW, theParamL);
-      }
     }
-    return 0;
+    return ::DefWindowProcW (theWnd, theMsg, theParamW, theParamL);
   }
+#endif
 private:
 
   Handle(AIS_InteractiveContext) myContext;
@@ -190,6 +130,7 @@ private:
 int main()
 {
   MyViewer aViewer;
+#ifdef _WIN32
   for (;;) // message loop
   {
     MSG aMsg = {};
@@ -200,5 +141,6 @@ int main()
     TranslateMessage(&aMsg);
     DispatchMessageW(&aMsg);
   }
+#endif
   return 0;
 }
