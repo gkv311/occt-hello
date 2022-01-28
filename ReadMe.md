@@ -16,3 +16,9 @@ Project within [`aisobject`](aisobject/) subfolder demonstrates definition of `A
 based on [Tutorial](https://unlimited3d.wordpress.com/2021/11/16/ais-object-computing-presentation/).
 
 ![AIS Object screenshot](/images/aisobject.gif)
+
+## Offscreen Dump
+
+Project within [`offscreen`](offscreen/) subfolder demonstrates OCCT 3D viewer setup for offscreen image dumps.
+
+![Offscreen screenshot](/images/offscreen.png)
