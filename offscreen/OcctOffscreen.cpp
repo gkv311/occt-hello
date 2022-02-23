@@ -21,6 +21,9 @@
 #ifdef _WIN32
   #include <WNT_WClass.hxx>
   #include <WNT_Window.hxx>
+#else
+  #include <Xw_Window.hxx>
+  #include <X11/Xlib.h>
 #endif
 
 //! Sample offscreen viewer class.
@@ -115,7 +118,7 @@ private:
 
 int main()
 {
-  OSD::SetSignal();
+  OSD::SetSignal (false);
 
   // image dimensions
   Graphic3d_Vec2i aWinSize (1920, 1080);

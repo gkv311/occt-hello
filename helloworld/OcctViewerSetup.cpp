@@ -7,12 +7,16 @@
 #include <AIS_ViewController.hxx>
 #include <BRepPrimAPI_MakeBox.hxx>
 #include <OpenGl_GraphicDriver.hxx>
+#include <OSD.hxx>
 #include <V3d_View.hxx>
 #include <V3d_Viewer.hxx>
 
 #ifdef _WIN32
   #include <WNT_WClass.hxx>
   #include <WNT_Window.hxx>
+#else
+  #include <Xw_Window.hxx>
+  #include <X11/Xlib.h>
 #endif
 
 #ifdef _MSC_VER
@@ -52,6 +56,14 @@ public:
     Handle(WNT_Window) aWindow = new WNT_Window ("OCCT Viewer", aWinClass,  WS_OVERLAPPEDWINDOW,
                                                  100, 100, 512, 512, Quantity_NOC_BLACK);
     ::SetWindowLongPtrW ((HWND )aWindow->NativeHandle(), GWLP_USERDATA, (LONG_PTR )this);
+  #else
+    Handle(Xw_Window) aWindow = new Xw_Window (aDisplay, "OCCT Viewer", 100, 100, 512, 512);
+    Display* anXDisplay = (Display* )aDisplay->GetDisplayAspect();
+    XSelectInput (anXDisplay, (Window )aWindow->NativeHandle(),
+                  ExposureMask | KeyPressMask | KeyReleaseMask | FocusChangeMask | StructureNotifyMask
+                | ButtonPressMask | ButtonReleaseMask | PointerMotionMask | Button1MotionMask | Button2MotionMask | Button3MotionMask);
+    Atom aDelWinAtom = aDisplay->GetAtom (Aspect_XA_DELETE_WINDOW);
+    XSetWMProtocols (anXDisplay, (Window )aWindow->NativeHandle(), &aDelWinAtom, 1);
   #endif
     myView->SetWindow (aWindow);
     myView->SetBackgroundColor (Quantity_NOC_GRAY50);
@@ -69,6 +81,12 @@ public:
     aWindow->Map();
     myView->Redraw();
   }
+
+  //! Return context.
+  const Handle(AIS_InteractiveContext)& Context() const { return myContext; }
+
+  //! Return view.
+  const Handle(V3d_View)& View() const { return myView; }
 
 private:
   //! Handle expose event.
@@ -131,9 +149,12 @@ private:
 
 int main()
 {
+  OSD::SetSignal (false);
+
   MyViewer aViewer;
 #ifdef _WIN32
-  for (;;) // message loop
+  // WinAPI message loop
+  for (;;)
   {
     MSG aMsg = {};
     if (GetMessageW (&aMsg, NULL, 0, 0) <= 0)
@@ -142,6 +163,21 @@ int main()
     }
     TranslateMessage(&aMsg);
     DispatchMessageW(&aMsg);
+  }
+#else
+  // X11 event loop
+  Handle(Xw_Window) aWindow = Handle(Xw_Window)::DownCast (aViewer.View()->Window());
+  Handle(Aspect_DisplayConnection) aDispConn = aViewer.View()->Viewer()->Driver()->GetDisplayConnection();
+  Display* anXDisplay = (Display* )aDispConn->GetDisplayAspect();
+  for (;;)
+  {
+    XEvent anXEvent;
+    XNextEvent (anXDisplay, &anXEvent);
+    aWindow->ProcessMessage (aViewer, anXEvent);
+    if (anXEvent.type == ClientMessage && (Atom)anXEvent.xclient.data.l[0] == aDispConn->GetAtom(Aspect_XA_DELETE_WINDOW))
+    {
+      return 0; // exit when window is closed
+    }
   }
 #endif
   return 0;

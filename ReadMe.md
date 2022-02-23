@@ -5,7 +5,7 @@ This repository contains Hello-World samples accompanying articles devoted to le
 
 ## Hello World
 
-Project within [`helloworld`](helloworld/) subfolder shows basic steps of OCCT 3D viewer on Windows platform
+Project within [`helloworld`](helloworld/) subfolder shows basic steps of OCCT 3D viewer on Windows and Linux platforms
 based on [Tutorial](https://unlimited3d.wordpress.com/2021/03/27/occt-minimal-viewer-setup/).
 
 ![Hello World screenshot](/images/helloworld.png)
