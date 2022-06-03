@@ -1,9 +1,9 @@
-Hello OCCT Viewer!
-==================
+Hello OpenCASCADE Technology!
+=============================
 
 This repository contains Hello-World samples accompanying articles devoted to learning [Open CASCADE Technology](https://dev.opencascade.org) (also abbreviated as OCCT) 3D Viewer API.
 
-## Hello World
+## AIS Hello
 
 Project within [`occt-ais-hello`](occt-ais-hello/) subfolder shows basic steps of OCCT 3D viewer on Windows and Linux platforms
 based on [Tutorial](https://unlimited3d.wordpress.com/2021/03/27/occt-minimal-viewer-setup/).
@@ -17,9 +17,10 @@ based on [Tutorial](https://unlimited3d.wordpress.com/2021/11/16/ais-object-comp
 
 ![AIS Object screenshot](/images/occt-ais-object.gif)
 
-## Offscreen Dump
+## AIS Offscreen Dump
 
-Project within [`occt-ais-offscreen`](occt-ais-offscreen/) subfolder demonstrates OCCT 3D viewer setup for offscreen image dumps.
+Project within [`occt-ais-offscreen`](occt-ais-offscreen/) subfolder demonstrates OCCT 3D viewer setup for offscreen image dump
+based on [Tutorial](https://unlimited3d.wordpress.com/2022/01/30/offscreen-occt-viewer/).
 
 ![Offscreen screenshot](/images/occt-ais-offscreen.png)
 
