@@ -25,4 +25,4 @@ Project within [`offscreen`](offscreen/) subfolder demonstrates OCCT 3D viewer s
 
 ## Draw Plugin
 
-Project within [`drawplugin`](drawplugin/) subfolder demonstrates Draw Harness plugin sample.
+Project within [`occt-draw-plugin`](occt-draw-plugin/) subfolder demonstrates Draw Harness plugin sample.
