@@ -1,0 +1,8 @@
+# load our custom plugin
+pload -MYDrawTest
+
+# execute out test command and put result into variable 'aRes'
+set aRes [myhello]
+
+# verify returned string and print error on failure
+if { "$aRes" != "HELLO from OcctDrawPlugin!" } { puts "Error: myhello doesn't work" }

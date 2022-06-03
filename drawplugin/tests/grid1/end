@@ -1,0 +1,5 @@
+# 'end' defines Tcl code shared between tests in this grid and included at the end of each test case;
+# a good place to perform clean up like deletion of temporary files
+
+# test will be considered FAILED if the following output will not be found in the log
+puts "TEST COMPLETED"

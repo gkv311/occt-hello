@@ -22,3 +22,7 @@ based on [Tutorial](https://unlimited3d.wordpress.com/2021/11/16/ais-object-comp
 Project within [`offscreen`](offscreen/) subfolder demonstrates OCCT 3D viewer setup for offscreen image dumps.
 
 ![Offscreen screenshot](/images/offscreen.png)
+
+## Draw Plugin
+
+Project within [`drawplugin`](drawplugin/) subfolder demonstrates Draw Harness plugin sample.

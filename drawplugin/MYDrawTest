@@ -1,0 +1,6 @@
+! Hierarchy of plug-ins
+ALL        : MYDRAWTEST
+DEFAULT    : MYDRAWTEST
+
+! Mapping from naming to toolkits (libraries)
+MYDRAWTEST : occt-draw-plugin

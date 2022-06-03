@@ -1,0 +1,4 @@
+# 'begin' defines Tcl code shared between tests in this grid and included at the beginning of each test case
+
+# kill process on exceeding time limit (due to infinity loop or similar bugs)
+cpulimit 1000

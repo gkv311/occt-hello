@@ -1,0 +1,7 @@
+pload MODELING VISUALIZATION
+
+# look for a file; will emit exception if file will be not found within CSF_TestDataPath folders
+set aTestFile [locate_data_file "NonExistingFile.brep"]
+
+restore $aTestFile b
+nbshapes b

@@ -1,0 +1,12 @@
+@echo OFF
+
+rem Script to setup environment for running DRAWEXE with custom plugin
+
+set "PATH=@OpenCASCADE_BINARY_DIR_RELEASE@;@3RDPARTY_DLL_DIRS@;%PATH%"
+set "CSF_MYDrawTestDefaults=@CMAKE_CURRENT_SOURCE_DIR@"
+set "CSF_TestScriptsPath=@CMAKE_CURRENT_SOURCE_DIR@/tests"
+set "CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../data"
+
+pushd "%~dp0Release"
+"@OpenCASCADE_BINARY_DIR_RELEASE@/DRAWEXE@CMAKE_EXECUTABLE_SUFFIX@" -i -c dputs {pload -MYDrawTest}; pload -MYDrawTest
+popd

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+ <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|@X_COMPILER_BITNESS@'" Label="Configuration">
+  <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_RELEASE@;@3RDPARTY_DLL_DIRS@;%PATH%
+CSF_MYDrawTestDefaults=@CMAKE_CURRENT_SOURCE_DIR@
+CSF_TestScriptsPath=@CMAKE_CURRENT_SOURCE_DIR@/tests
+CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../data
+  </LocalDebuggerEnvironment>
+  <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
+  <LocalDebuggerCommand>@OpenCASCADE_BINARY_DIR_RELEASE@/DRAWEXE@CMAKE_EXECUTABLE_SUFFIX@</LocalDebuggerCommand>
+  <LocalDebuggerCommandArguments>-i -c dputs {pload -MYDrawTest};pload -MYDrawTest</LocalDebuggerCommandArguments>
+ </PropertyGroup>
+ <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|@X_COMPILER_BITNESS@'" Label="Configuration">
+  <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_RELEASE@;@3RDPARTY_DLL_DIRS@;%PATH%
+CSF_MYDrawTestDefaults=@CMAKE_CURRENT_SOURCE_DIR@
+CSF_TestScriptsPath=@CMAKE_CURRENT_SOURCE_DIR@/tests
+CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../data
+  </LocalDebuggerEnvironment>
+  <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
+  <LocalDebuggerCommand>@OpenCASCADE_BINARY_DIR_RELEASE@/DRAWEXE@CMAKE_EXECUTABLE_SUFFIX@</LocalDebuggerCommand>
+  <LocalDebuggerCommandArguments>-i -c dputs {pload -MYDrawTest};pload -MYDrawTest</LocalDebuggerCommandArguments>
+ </PropertyGroup>
+ <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|@X_COMPILER_BITNESS@'" Label="Configuration">
+  <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_DEBUG@;@3RDPARTY_DLL_DIRS@;%PATH%
+CSF_MYDrawTestDefaults=@CMAKE_CURRENT_SOURCE_DIR@
+CSF_TestScriptsPath=@CMAKE_CURRENT_SOURCE_DIR@/tests
+CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../data
+  </LocalDebuggerEnvironment>
+  <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
+  <LocalDebuggerCommand>@OpenCASCADE_BINARY_DIR_RELEASE@/DRAWEXE@CMAKE_EXECUTABLE_SUFFIX@</LocalDebuggerCommand>
+  <LocalDebuggerCommandArguments>-i -c dputs {pload -MYDrawTest};pload -MYDrawTest</LocalDebuggerCommandArguments>
+  </PropertyGroup>
+</Project>
