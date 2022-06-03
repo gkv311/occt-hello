@@ -281,7 +281,9 @@ public:
     myView = new V3d_View (aViewer);
   #ifdef _WIN32
     const TCollection_AsciiString aClassName ("MyWinClass");
-    Handle(WNT_WClass) aWinClass = new WNT_WClass (aClassName.ToCString(), &windowProcWrapper, 0);
+    Handle(WNT_WClass) aWinClass = new WNT_WClass (aClassName.ToCString(), &windowProcWrapper,
+                                                   CS_VREDRAW | CS_HREDRAW, 0, 0,
+                                                   ::LoadCursor (NULL, IDC_ARROW));
     Handle(WNT_Window) aWindow = new WNT_Window ("OCCT Viewer", aWinClass,  WS_OVERLAPPEDWINDOW,
                                                  100, 100, 512, 512, Quantity_NOC_BLACK);
     ::SetWindowLongPtrW ((HWND )aWindow->NativeHandle(), GWLP_USERDATA, (LONG_PTR )this);

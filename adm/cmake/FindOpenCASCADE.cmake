@@ -1,12 +1,15 @@
-# This script finds OpenCASCADE Technology libraries.
+# This script finds OpenCASCADE Technology libraries (OCCT).
+# https://dev.opencascade.org/
+#
 # The script requires:
 #  OpenCASCADE_DIR - root OCCT folder or folder with CMake configuration files
 #
 # Script will define the following variables on success:
-#  OpenCASCADE_FOUND       - package is successfully found
-#  OpenCASCADE_INCLUDE_DIR - directory with headers
-#  OpenCASCADE_LIBRARY_DIR - directory with libraries for linker
-#  OpenCASCADE_BINARY_DIR  - directory with DLLs
+#  OpenCASCADE_FOUND        - package is successfully found
+#  OpenCASCADE_INCLUDE_DIR  - directory with headers
+#  OpenCASCADE_LIBRARY_DIR  - directory with libraries for linker
+#  OpenCASCADE_BINARY_DIR   - directory with DLLs
+#  OpenCASCADE_RESOURCE_DIR - directory with resource files
 include(FindPackageHandleStandardArgs)
 
 # MY_PLATFORM variable
@@ -52,9 +55,10 @@ set (MY_PLATFORM_AND_COMPILER "${MY_PLATFORM}/${MY_COMPILER}")
 set (OpenCASCADE_DIR "" CACHE PATH "Path to Open CASCADE libraries.")
 
 # default paths
-set (OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_DIR}/inc")
-set (OpenCASCADE_LIBRARY_DIR "${OpenCASCADE_DIR}/${MY_PLATFORM_AND_COMPILER}/lib")
-set (OpenCASCADE_BINARY_DIR  "${OpenCASCADE_DIR}/${MY_PLATFORM_AND_COMPILER}/bin")
+set (OpenCASCADE_INCLUDE_DIR  "${OpenCASCADE_DIR}/inc")
+set (OpenCASCADE_LIBRARY_DIR  "${OpenCASCADE_DIR}/${MY_PLATFORM_AND_COMPILER}/lib")
+set (OpenCASCADE_BINARY_DIR   "${OpenCASCADE_DIR}/${MY_PLATFORM_AND_COMPILER}/bin")
+set (OpenCASCADE_RESOURCE_DIR "${OpenCASCADE_DIR}/src")
 
 # complete list of OCCT Toolkits (copy-paste from adm/UDLIST, since installed OCCT does not include UDLIST)
 set (OpenCASCADE_TKLIST "")
@@ -119,11 +123,12 @@ if (OpenCASCADE_INCLUDE_DIR_FOUND AND OpenCASCADE_LIBRARY_DIR_FOUND)
   set (OpenCASCADE_INSTALL_PREFIX ${OpenCASCADE_DIR})
 
   # Define OCCT toolkits so that CMake can put absolute paths to linker;
-  # the library existance is not checked here, since modules can be disabled.
+  # the library existence is not checked here, since modules can be disabled.
   foreach (aLibIter ${OpenCASCADE_TKLIST})
     add_library (${aLibIter} SHARED IMPORTED)
 
     set_property (TARGET ${aLibIter} APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+    set_target_properties (${aLibIter} PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${OpenCASCADE_INCLUDE_DIR})
     set_target_properties (${aLibIter} PROPERTIES IMPORTED_IMPLIB_RELEASE "${OpenCASCADE_LIBRARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}${aLibIter}${OpenCASCADE_IMPLIB_SUFFIX}")
     if (OpenCASCADE_SHAREDLIB_RELEASE_FOUND)
       if (WIN32)

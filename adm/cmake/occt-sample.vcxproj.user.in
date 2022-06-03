@@ -3,19 +3,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|@X_COMPILER_BITNESS@'" Label="Configuration">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR@;@3RDPARTY_DLL_DIRS@;%PATH%
+    <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_RELEASE@;@3RDPARTY_DLL_DIRS@;%PATH%
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|@X_COMPILER_BITNESS@'" Label="Configuration">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR@;@3RDPARTY_DLL_DIRS@;%PATH%
+    <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_RELEASE@;@3RDPARTY_DLL_DIRS@;%PATH%
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|@X_COMPILER_BITNESS@'" Label="Configuration">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR@d;@3RDPARTY_DLL_DIRS@;%PATH%
+    <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_DEBUG@;@3RDPARTY_DLL_DIRS@;%PATH%
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
 </Project>
