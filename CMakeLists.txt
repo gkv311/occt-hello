@@ -4,6 +4,6 @@ cmake_minimum_required (VERSION 2.8)
 project (occt-hello)
 
 add_subdirectory (helloworld)
-add_subdirectory (aisobject)
+add_subdirectory (occt-ais-object)
 add_subdirectory (offscreen)
 add_subdirectory (drawplugin)
