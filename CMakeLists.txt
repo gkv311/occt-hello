@@ -5,5 +5,5 @@ project (occt-hello)
 
 add_subdirectory (helloworld)
 add_subdirectory (occt-ais-object)
-add_subdirectory (offscreen)
+add_subdirectory (occt-ais-offscreen)
 add_subdirectory (occt-draw-plugin)

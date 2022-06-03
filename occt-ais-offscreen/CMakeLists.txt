@@ -1,12 +1,12 @@
 cmake_minimum_required (VERSION 2.8)
 
-project (occt-offscreen)
+project (occt-ais-offscreen)
 
 set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../adm/cmake" ${CMAKE_MODULE_PATH})
 
 set (APP_VERSION_MAJOR 1)
 set (APP_VERSION_MINOR 0)
-set (APP_TARGET occt-offscreen)
+set (APP_TARGET occt-ais-offscreen)
 set (CMAKE_CXX_STANDARD 11)
 
 find_package (OpenGL      REQUIRED)
@@ -30,7 +30,7 @@ else()
 endif()
 
 add_executable (${APP_TARGET}
-  OcctOffscreen.cpp)
+  OcctAisOffscreen.cpp)
 
 # extra search paths
 include_directories(${OpenCASCADE_INCLUDE_DIR})

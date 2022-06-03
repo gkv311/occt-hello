@@ -19,9 +19,9 @@ based on [Tutorial](https://unlimited3d.wordpress.com/2021/11/16/ais-object-comp
 
 ## Offscreen Dump
 
-Project within [`offscreen`](offscreen/) subfolder demonstrates OCCT 3D viewer setup for offscreen image dumps.
+Project within [`occt-ais-offscreen`](occt-ais-offscreen/) subfolder demonstrates OCCT 3D viewer setup for offscreen image dumps.
 
-![Offscreen screenshot](/images/offscreen.png)
+![Offscreen screenshot](/images/occt-ais-offscreen.png)
 
 ## Draw Plugin
 
