@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4DE72600-930D-408E-B593-E4E87FE7460B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>OcctViewerSetup</RootNamespace>
+    <RootNamespace>OcctAisHello</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -146,7 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="OcctViewerSetup.cpp" />
+    <ClCompile Include="OcctAisHello.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

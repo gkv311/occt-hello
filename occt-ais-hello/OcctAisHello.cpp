@@ -31,11 +31,11 @@
 #endif
 
 //! Sample single-window viewer class.
-class MyViewer : public AIS_ViewController
+class OcctAisHello : public AIS_ViewController
 {
 public:
   //! Main constructor.
-  MyViewer()
+  OcctAisHello()
   {
     // graphic driver setup
     Handle(Aspect_DisplayConnection) aDisplay = new Aspect_DisplayConnection();
@@ -129,7 +129,7 @@ private:
       return 0;
     }
 
-    if (MyViewer* aThis = (MyViewer* )::GetWindowLongPtrW (theWnd, GWLP_USERDATA))
+    if (OcctAisHello* aThis = (OcctAisHello* )::GetWindowLongPtrW (theWnd, GWLP_USERDATA))
     {
       WNT_Window* aWindow = dynamic_cast<WNT_Window* >(aThis->myView->Window().get());
       MSG aMsg = { theWnd, theMsg, theParamW, theParamL };
@@ -151,7 +151,7 @@ int main()
 {
   OSD::SetSignal (false);
 
-  MyViewer aViewer;
+  OcctAisHello aViewer;
 #ifdef _WIN32
   // WinAPI message loop
   for (;;)
