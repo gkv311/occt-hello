@@ -5,4 +5,4 @@ pload -MYDrawTest
 set aRes [myhello]
 
 # verify returned string and print error on failure
-if { "$aRes" != "HELLO from OcctDrawPlugin!" } { puts "Error: myhello doesn't work" }
+if { "$aRes" != "HELLO" } { puts "Error: myhello doesn't work" }

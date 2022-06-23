@@ -14,10 +14,25 @@ public:
 };
 
 //! Command just printing "hello" message.
-static int myhello (Draw_Interpretor& theDI, int , const char** )
+static int myhello (Draw_Interpretor& theDI,
+                    int theNbArgs, const char** theArgVec)
 {
-  theDI << "HELLO from OcctDrawPlugin!";
-  return 0;
+  if (theNbArgs != 1)
+  {
+    theDI << "Syntax error - wrong number of arguments";
+    return 1; // throw Tcl exception
+  }
+
+  // std::cout/std::cerr will appear in terminal,
+  // but will be inaccessible to Tcl
+  std::cout << "standard output\n";
+
+  // first argument equals to command name, e.g. "myhello"
+  std::cout << "command '" << theArgVec[0] << "'\n";
+
+  // output to theDI will be accessible to Tcl
+  theDI << "HELLO";
+  return 0; // normal result
 }
 
 // Add commands to Draw_Interpretor.
