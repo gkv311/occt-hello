@@ -30,7 +30,7 @@ else()
 endif()
 
 add_executable (${APP_TARGET}
-  OcctAisOffscreen.cpp)
+  OcctAisOffscreen.cpp ReadMe.md)
 
 # extra search paths
 include_directories(${OpenCASCADE_INCLUDE_DIR})

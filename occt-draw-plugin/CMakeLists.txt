@@ -28,7 +28,7 @@ else()
 endif()
 
 add_library (${PROJECT_NAME} SHARED
-  OcctDrawPlugin.cpp)
+  OcctDrawPlugin.cpp ReadMe.md)
 
 # extra search paths
 include_directories(${OpenCASCADE_INCLUDE_DIR})
