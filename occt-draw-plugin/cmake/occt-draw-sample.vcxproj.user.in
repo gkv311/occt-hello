@@ -4,7 +4,7 @@
   <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_RELEASE@;@3RDPARTY_DLL_DIRS@;%PATH%
 CSF_MYDrawTestDefaults=@CMAKE_CURRENT_SOURCE_DIR@
 CSF_TestScriptsPath=@CMAKE_CURRENT_SOURCE_DIR@/tests
-CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../data
+CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../models
   </LocalDebuggerEnvironment>
   <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
@@ -15,7 +15,7 @@ CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../data
   <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_RELEASE@;@3RDPARTY_DLL_DIRS@;%PATH%
 CSF_MYDrawTestDefaults=@CMAKE_CURRENT_SOURCE_DIR@
 CSF_TestScriptsPath=@CMAKE_CURRENT_SOURCE_DIR@/tests
-CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../data
+CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../models
   </LocalDebuggerEnvironment>
   <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
@@ -26,7 +26,7 @@ CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../data
   <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_DEBUG@;@3RDPARTY_DLL_DIRS@;%PATH%
 CSF_MYDrawTestDefaults=@CMAKE_CURRENT_SOURCE_DIR@
 CSF_TestScriptsPath=@CMAKE_CURRENT_SOURCE_DIR@/tests
-CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../data
+CSF_TestDataPath=@CMAKE_CURRENT_SOURCE_DIR@/../models
   </LocalDebuggerEnvironment>
   <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>

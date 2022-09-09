@@ -27,3 +27,9 @@ based on [Tutorial](https://unlimited3d.wordpress.com/2022/01/30/offscreen-occt-
 ## Draw Plugin
 
 Project within [`occt-draw-plugin`](occt-draw-plugin/) subfolder demonstrates Draw Harness plugin sample.
+
+## XCAF Shape
+
+Project within [`occt-xcaf-shape`](occt-xcaf-shape/) subfolder demonstrates reading of STEP file into XCAF document and displaying it via `XCAFPrs_AISObject` in 3D Viewer.
+
+![AIS Object screenshot](/images/occt-xcaf-shape.png)

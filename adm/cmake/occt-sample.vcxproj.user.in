@@ -4,18 +4,21 @@
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_RELEASE@;@3RDPARTY_DLL_DIRS@;%PATH%
+SAMPLE_MODELS_DIR=@CMAKE_CURRENT_SOURCE_DIR@/../models
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|@X_COMPILER_BITNESS@'" Label="Configuration">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_RELEASE@;@3RDPARTY_DLL_DIRS@;%PATH%
+SAMPLE_MODELS_DIR=@CMAKE_CURRENT_SOURCE_DIR@/../models
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|@X_COMPILER_BITNESS@'" Label="Configuration">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerEnvironment>PATH=@OpenCASCADE_BINARY_DIR_DEBUG@;@3RDPARTY_DLL_DIRS@;%PATH%
+SAMPLE_MODELS_DIR=@CMAKE_CURRENT_SOURCE_DIR@/../models
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
 </Project>
