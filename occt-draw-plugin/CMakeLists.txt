@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.13)
 
 project (occt-draw-plugin)
 
@@ -57,8 +57,16 @@ if (MSVC)
   endif()
 
   # Visual Studio debugger environment
-  set (X_COMPILER_BITNESS x64)
-  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/occt-draw-sample.vcxproj.user.in" "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.vcxproj.user" @ONLY)
+  set_target_properties(${PROJECT_NAME} PROPERTIES
+    VS_DEBUGGER_ENVIRONMENT "\
+PATH=%PATH%;$<IF:$<CONFIG:Debug>,${OpenCASCADE_BINARY_DIR_DEBUG},${OpenCASCADE_BINARY_DIR_RELEASE}>;${3RDPARTY_DLL_DIRS}\n\
+CSF_MYDrawTestDefaults=${CMAKE_CURRENT_SOURCE_DIR}\n\
+CSF_TestScriptsPath=${CMAKE_CURRENT_SOURCE_DIR}/tests\n\
+CSF_TestDataPath=${CMAKE_CURRENT_SOURCE_DIR}/../models"
+    VS_DEBUGGER_COMMAND           "$<IF:$<CONFIG:Debug>,${OpenCASCADE_BINARY_DIR_DEBUG},${OpenCASCADE_BINARY_DIR_RELEASE}>/DRAWEXE.exe"
+    VS_DEBUGGER_COMMAND_ARGUMENTS "-i -c dputs {pload -MYDrawTest};pload -MYDrawTest"
+    VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
+  )
 
   # batch script file running DRAWEXE from make folder
   configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/cmake/occt-draw-release.bat.in" "${CMAKE_CURRENT_BINARY_DIR}/draw-release.bat" @ONLY)
