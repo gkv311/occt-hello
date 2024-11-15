@@ -197,5 +197,10 @@ int main()
   }
   Message::SendInfo() << "Screenshot " << anImage.Width() << "x" << anImage.Height() << "@" << Image_PixMap::ImageFormatToString(anImage.Format())
                       << " saved into file '" << anImageName << "'";
+
+  // use default application to open image
+#if defined(_WIN32)
+  ShellExecuteW(NULL, L"open", TCollection_ExtendedString(anImageName).ToWideString(), NULL, NULL, SW_SHOWNORMAL);
+#endif
   return 0;
 }
