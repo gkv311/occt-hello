@@ -116,7 +116,7 @@ private:
 
 };
 
-int main()
+int main(int argc, const char** argv)
 {
   OSD::SetSignal (false);
 
@@ -199,6 +199,13 @@ int main()
                       << " saved into file '" << anImageName << "'";
 
   // use default application to open image
+  for (int anArgIter = 1; anArgIter < argc; ++anArgIter)
+  {
+    if (TCollection_AsciiString::IsSameString (argv[anArgIter], "-noopen", false))
+    {
+      return 0;
+    }
+  }
 #if defined(_WIN32)
   ShellExecuteW(NULL, L"open", TCollection_ExtendedString(anImageName).ToWideString(), NULL, NULL, SW_SHOWNORMAL);
 #elif defined(__linux__)

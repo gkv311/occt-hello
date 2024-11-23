@@ -1,7 +1,10 @@
 Hello OpenCASCADE Technology!
 =============================
 
+[![Status](https://github.com/gkv311/occt-hello/actions/workflows/build_ubuntu_24.04.yml/badge.svg?branch=master)](https://github.com/gkv311/occt-hello/actions?query=branch%3Amaster)
+
 This repository contains Hello-World samples accompanying articles devoted to learning [Open CASCADE Technology](https://dev.opencascade.org) (also abbreviated as OCCT) 3D Viewer API.
+Samples require OCCT 7.6 or later for building.
 
 ## AIS Hello
 
