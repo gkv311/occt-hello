@@ -71,4 +71,8 @@ CSF_TestDataPath=${CMAKE_CURRENT_SOURCE_DIR}/../models"
   # batch script file running DRAWEXE from make folder
   configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/cmake/occt-draw-release.bat.in" "${CMAKE_CURRENT_BINARY_DIR}/draw-release.bat" @ONLY)
   configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/cmake/occt-draw-debug.bat.in"   "${CMAKE_CURRENT_BINARY_DIR}/draw-debug.bat"   @ONLY)
+else()
+  # batch script file running DRAWEXE from make folder
+  configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/cmake/occt-draw.sh.in" "${CMAKE_CURRENT_BINARY_DIR}/draw.sh" @ONLY
+                  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 endif()
