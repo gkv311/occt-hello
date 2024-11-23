@@ -201,6 +201,10 @@ int main()
   // use default application to open image
 #if defined(_WIN32)
   ShellExecuteW(NULL, L"open", TCollection_ExtendedString(anImageName).ToWideString(), NULL, NULL, SW_SHOWNORMAL);
+#elif defined(__linux__)
+  // https://www.freedesktop.org/wiki/Software/xdg-utils/
+  TCollection_AsciiString aCmd = TCollection_AsciiString("xdg-open ") + anImageName;
+  std::system(aCmd.ToCString());
 #endif
   return 0;
 }
