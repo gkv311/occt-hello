@@ -14,6 +14,8 @@
 #ifdef _WIN32
   #include <WNT_WClass.hxx>
   #include <WNT_Window.hxx>
+#elif defined(__APPLE__)
+  #include <Cocoa_Window.hxx>
 #else
   #include <Xw_Window.hxx>
   #include <X11/Xlib.h>
@@ -287,6 +289,8 @@ public:
     Handle(WNT_Window) aWindow = new WNT_Window ("OCCT Viewer", aWinClass,  WS_OVERLAPPEDWINDOW,
                                                  100, 100, 512, 512, Quantity_NOC_BLACK);
     ::SetWindowLongPtrW ((HWND )aWindow->NativeHandle(), GWLP_USERDATA, (LONG_PTR )this);
+  #elif defined(__APPLE__)
+    Handle(Cocoa_Window) aWindow = new Cocoa_Window ( "OCCT Viewer", 100, 100, 512, 512);
   #else
     Handle(Xw_Window) aWindow = new Xw_Window (aDisplay, "OCCT Viewer", 100, 100, 512, 512);
     Display* anXDisplay = (Display* )aDisplay->GetDisplayAspect();
@@ -395,6 +399,9 @@ int main()
     TranslateMessage(&aMsg);
     DispatchMessageW(&aMsg);
   }
+#elif defined(__APPLE__)
+  /// TODO
+  Message::SendFail() << "Critical error: Cocoa message loop is not implemented";
 #else
   // X11 event loop
   Handle(Xw_Window) aWindow = Handle(Xw_Window)::DownCast (aViewer.View()->Window());

@@ -21,6 +21,8 @@
 #ifdef _WIN32
   #include <WNT_WClass.hxx>
   #include <WNT_Window.hxx>
+#elif defined(__APPLE__)
+  #include <Cocoa_Window.hxx>
 #else
   #include <Xw_Window.hxx>
   #include <X11/Xlib.h>

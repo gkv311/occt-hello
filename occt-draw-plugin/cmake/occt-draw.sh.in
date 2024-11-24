@@ -1,17 +1,18 @@
 #!/bin/bash
 
 # Script to setup environment for running DRAWEXE with custom plugin
-
-export LD_LIBRARY_PATH="@CMAKE_CURRENT_BINARY_DIR@:$LD_LIBRARY_PATH"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  export DYLD_LIBRARY_PATH="@CMAKE_CURRENT_BINARY_DIR@:@OpenCASCADE_LIBRARY_DIR@:$DYLD_LIBRARY_PATH"
+else
+  export LD_LIBRARY_PATH="@CMAKE_CURRENT_BINARY_DIR@:@OpenCASCADE_LIBRARY_DIR@:$LD_LIBRARY_PATH"
+fi
 export CSF_MYDrawTestDefaults="@CMAKE_CURRENT_SOURCE_DIR@"
 export CSF_TestScriptsPath="@CMAKE_CURRENT_SOURCE_DIR@/tests"
 export CSF_TestDataPath="@CMAKE_CURRENT_SOURCE_DIR@/../models"
 
-if [[ -x "@OpenCASCADE_BINARY_DIR@/DRAWEXE" ]]
-then
+if [[ -x "@OpenCASCADE_BINARY_DIR@/DRAWEXE" ]]; then
   "@OpenCASCADE_BINARY_DIR@/DRAWEXE" -i -c "dputs {pload -MYDrawTest}; pload -MYDrawTest"
-elif [[ -x "@OpenCASCADE_BINARY_DIR@/occt-draw" ]]
-then
+elif [[ -x "@OpenCASCADE_BINARY_DIR@/occt-draw" ]]; then
   "@OpenCASCADE_BINARY_DIR@/occt-draw" -i -c "dputs {pload -MYDrawTest}; pload -MYDrawTest"
 else
   echo "Error: @OpenCASCADE_BINARY_DIR@/DRAWEXE not found"
