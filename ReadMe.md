@@ -8,7 +8,7 @@ Samples require OCCT 7.6 or later for building.
 
 ## AIS Hello
 
-Project within [`occt-ais-hello`](occt-ais-hello/) subfolder shows basic steps of OCCT 3D viewer on Windows and Linux platforms
+Project within [`occt-ais-hello`](occt-ais-hello/) subfolder shows basic steps of OCCT 3D viewer on Windows, Linux and macOS platforms
 based on [Tutorial](https://unlimited3d.wordpress.com/2021/03/27/occt-minimal-viewer-setup/).
 
 ![Hello World screenshot](/images/occt-ais-hello.png)
