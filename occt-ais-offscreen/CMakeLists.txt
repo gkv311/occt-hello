@@ -31,10 +31,12 @@ endif()
 
 if (APPLE)
   enable_language(OBJCXX)
+else()
+  set_source_files_properties (OcctAisOffscreen.objc.mm PROPERTIES HEADER_FILE_ONLY TRUE)
 endif()
 
 add_executable (${APP_TARGET}
-  OcctAisOffscreen.cpp ReadMe.md)
+  OcctAisOffscreen.cpp OcctAisOffscreen.objc.mm ReadMe.md)
 
 # extra search paths
 include_directories(${OpenCASCADE_INCLUDE_DIR})

@@ -22,6 +22,7 @@
   #include <WNT_WClass.hxx>
   #include <WNT_Window.hxx>
 #elif defined(__APPLE__)
+  #include <Cocoa_LocalPool.hxx>
   #include <Cocoa_Window.hxx>
 #else
   #include <Xw_Window.hxx>
@@ -118,9 +119,17 @@ private:
 
 };
 
+#ifdef __APPLE__
+void occtCreateNSApp(); // implemented in .mm file
+#endif
+
 int main(int argc, const char** argv)
 {
   OSD::SetSignal (false);
+
+#ifdef __APPLE__
+  occtCreateNSApp();
+#endif
 
   // image dimensions
   Graphic3d_Vec2i aWinSize (1920, 1080);
@@ -210,6 +219,9 @@ int main(int argc, const char** argv)
   }
 #if defined(_WIN32)
   ShellExecuteW(NULL, L"open", TCollection_ExtendedString(anImageName).ToWideString(), NULL, NULL, SW_SHOWNORMAL);
+#elif defined(__APPLE__)
+  TCollection_AsciiString aCmd = TCollection_AsciiString("open ") + anImageName;
+  std::system(aCmd.ToCString());
 #elif defined(__linux__)
   // https://www.freedesktop.org/wiki/Software/xdg-utils/
   TCollection_AsciiString aCmd = TCollection_AsciiString("xdg-open ") + anImageName;
