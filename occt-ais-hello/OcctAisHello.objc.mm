@@ -51,10 +51,24 @@
   - (id ) autorelease { return self; }
 
   - (BOOL ) application: (NSApplication* )theApplication openFile: (NSString* )theFilename { return YES; }
-  - (void ) applicationDidFinishLaunching: (NSNotification* )theNotification {}
-  - (void ) applicationWillTerminate: (NSNotification* )theNotification {}
+  - (void ) applicationWillFinishLaunching: (NSNotification* )theNotif { [self createMenu]; }
+  - (void ) applicationDidFinishLaunching: (NSNotification* )theNotif {}
+  - (void ) applicationWillTerminate: (NSNotification* )theNotif {}
 
   + (void ) doDummyThread: (id )theParam {}
+
+  - (void ) createMenu
+  {
+    NSMenu* aMenubar = [[NSMenu alloc] init];
+    NSMenuItem* aMenuBarItem = [[NSMenuItem alloc] init];
+    [aMenubar addItem: aMenuBarItem];
+    [NSApp setMainMenu: aMenubar];
+    NSMenu* aMenu = [[NSMenu alloc] init];
+    NSString* aQuitTitle = @"Quit";
+    NSMenuItem* aQuitMenuItem = [[NSMenuItem alloc] initWithTitle: aQuitTitle action: @selector(terminate:) keyEquivalent: @"q"];
+    [aMenu addItem: aQuitMenuItem];
+    [aMenuBarItem setSubmenu: aMenu];
+  }
 
 @end
 
