@@ -48,7 +48,7 @@
 
 @end
 
-void occtCreateNSApp()
+void occtNSAppCreate()
 {
   // create dummy NSThread to ensure Cocoa thread-safety
   [NSThread detachNewThreadSelector: @selector(doDummyThread: ) toTarget: [OcctTestNSResponder class] withObject: nullptr];

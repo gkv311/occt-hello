@@ -15,6 +15,7 @@
   #include <WNT_WClass.hxx>
   #include <WNT_Window.hxx>
 #elif defined(__APPLE__)
+  #include <Cocoa_LocalPool.hxx>
   #include <Cocoa_Window.hxx>
 #else
   #include <Xw_Window.hxx>
@@ -30,6 +31,12 @@
   #pragma comment(lib, "TKService.lib")
   #pragma comment(lib, "TKMath.lib")
   #pragma comment(lib, "TKernel.lib")
+#endif
+
+#ifdef __APPLE__
+void occtNSAppCreate(); // implemented in .mm file
+void occtNSAppRun();
+void occtNSAppSetEventView(const Handle(Cocoa_Window)& theWindow, AIS_ViewController* theCtrl);
 #endif
 
 //! Sample single-window viewer class.
@@ -60,6 +67,7 @@ public:
     ::SetWindowLongPtrW ((HWND )aWindow->NativeHandle(), GWLP_USERDATA, (LONG_PTR )this);
   #elif defined(__APPLE__)
     Handle(Cocoa_Window) aWindow = new Cocoa_Window ( "OCCT Viewer", 100, 100, 512, 512);
+    occtNSAppSetEventView(aWindow, this);
   #else
     Handle(Xw_Window) aWindow = new Xw_Window (aDisplay, "OCCT Viewer", 100, 100, 512, 512);
     Display* anXDisplay = (Display* )aDisplay->GetDisplayAspect();
@@ -105,7 +113,7 @@ private:
   //! Handle window resize event.
   virtual void ProcessConfigure (bool theIsResized) override
   {
-    if (!myView.IsNull() && theIsResized)
+    if (!myView.IsNull() && theIsResized && !myView->Window().IsNull())
     {
       myView->Window()->DoResize();
       myView->MustBeResized();
@@ -155,6 +163,10 @@ int main()
 {
   OSD::SetSignal (false);
 
+#ifdef __APPLE__
+  occtNSAppCreate();
+#endif
+
   OcctAisHello aViewer;
 #ifdef _WIN32
   // WinAPI message loop
@@ -169,8 +181,8 @@ int main()
     DispatchMessageW(&aMsg);
   }
 #elif defined(__APPLE__)
-  /// TODO
-  Message::SendFail() << "Critical error: Cocoa message loop is not implemented";
+  // run Cocoa event loop
+  occtNSAppRun();
 #else
   // X11 event loop
   Handle(Xw_Window) aWindow = Handle(Xw_Window)::DownCast (aViewer.View()->Window());

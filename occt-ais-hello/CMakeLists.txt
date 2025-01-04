@@ -29,8 +29,14 @@ else()
   add_definitions(-DOCC_CONVERT_SIGNALS)
 endif()
 
+if (APPLE)
+  enable_language(OBJCXX)
+else()
+  set_source_files_properties (OcctAisHello.objc.mm PROPERTIES HEADER_FILE_ONLY TRUE)
+endif()
+
 add_executable (${APP_TARGET}
-  OcctAisHello.cpp ReadMe.md)
+  OcctAisHello.cpp OcctAisHello.objc.mm ReadMe.md)
 
 # extra search paths
 include_directories(${OpenCASCADE_INCLUDE_DIR})

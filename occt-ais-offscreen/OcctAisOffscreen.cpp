@@ -120,7 +120,7 @@ private:
 };
 
 #ifdef __APPLE__
-void occtCreateNSApp(); // implemented in .mm file
+void occtNSAppCreate(); // implemented in .mm file
 #endif
 
 int main(int argc, const char** argv)
@@ -128,7 +128,7 @@ int main(int argc, const char** argv)
   OSD::SetSignal (false);
 
 #ifdef __APPLE__
-  occtCreateNSApp();
+  occtNSAppCreate();
 #endif
 
   // image dimensions
